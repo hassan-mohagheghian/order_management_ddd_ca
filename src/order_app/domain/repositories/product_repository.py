@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from order_app.domain.entities.product import Product
 from uuid import UUID
+
+from order_app.domain.entities.product import Product
 
 
 class ProductRepository(ABC):

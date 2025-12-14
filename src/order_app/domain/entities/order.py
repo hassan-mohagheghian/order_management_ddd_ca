@@ -1,12 +1,11 @@
-from dataclasses import dataclass, field
 import datetime
+from dataclasses import dataclass, field
+from decimal import Decimal
 from enum import auto
 from typing import Optional
 from uuid import UUID
+
 from .entity import Entity
-from decimal import Decimal
-
-
 from .product import Product
 
 

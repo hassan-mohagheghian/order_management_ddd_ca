@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from order_app.domain.entities.order import Order
 from uuid import UUID
+
+from order_app.domain.entities.order import Order
 
 
 class OrderRepository(ABC):

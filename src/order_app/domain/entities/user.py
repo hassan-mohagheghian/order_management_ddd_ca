@@ -1,10 +1,9 @@
-from dataclasses import dataclass, field
 import datetime
-from typing import Optional
-from .entity import Entity
-
-
+from dataclasses import dataclass, field
 from enum import Enum, auto
+from typing import Optional
+
+from .entity import Entity
 
 
 class UserRole(Enum):
