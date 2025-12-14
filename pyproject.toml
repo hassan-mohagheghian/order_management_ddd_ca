@@ -1,0 +1,9 @@
+[project]
+name = "order_management_app"
+version = "0.1.0"
+description = "A simple order management application"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+[dependency-groups]
+dev = ["pytest>=9.0.2"]
