@@ -12,15 +12,6 @@ from order_app.domain.entities.order import OrderItem
 
 
 @pytest.fixture
-def order_repository():
-    class MockOrderRepository:
-        def __init__(self):
-            self.save = MagicMock()
-
-    return MockOrderRepository()
-
-
-@pytest.fixture
 def product_repository():
     class MockProductRepository:
         def __init__(self):

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 from uuid import UUID
 
 from order_app.domain.entities.order import Order
@@ -20,6 +21,6 @@ class OrderRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_user(self, user_id: UUID) -> list[Order]:
-        """Retrieve all orders for a specific user."""
+    def get_list(self, user_id: Optional[UUID] = None) -> list[Order]:
+        """Retrieve list of orders optionally filtered by specific user ID."""
         pass
