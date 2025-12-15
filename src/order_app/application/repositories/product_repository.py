@@ -12,13 +12,13 @@ class ProductRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, product: Product) -> None:
-        """Update an existing product in the repository."""
-        pass
-
-    @abstractmethod
     def get_by_id(self, product_id: UUID) -> Optional[Product]:
-        """Retrieve a product by its ID."""
+        """
+        Retrieve a product by its ID.
+
+        Raises:
+            ProductNotFoundError: If no product exists with the given ID
+        """
         pass
 
     @abstractmethod

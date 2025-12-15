@@ -1,40 +1,15 @@
 import datetime
 from dataclasses import dataclass, field
 from decimal import Decimal
-from enum import auto
 from functools import reduce
 from typing import Optional
 from uuid import UUID
 
-from order_app.domain.value_objects.money import Money
+from order_app.domain.value_objects import Money, OrderItem
+from order_app.domain.value_objects.order_status import OrderStatus
 
 from .entity import Entity
 from .product import Product
-
-
-class OrderStatus:
-    CREATED = auto()
-    PAID = auto()
-    FULFILLING = auto()
-    SHIPPED = auto()
-    DELIVERED = auto()
-    CANCELLED = auto()
-
-
-@dataclass
-class OrderItem:
-    product_id: str
-    quantity: int
-    price_per_unit: Money
-
-    def total_price(self) -> Money:
-        return self.price_per_unit * self.quantity
-
-    def __str__(self):
-        return (
-            f"OrderItem(product_id={self.product_id}, quantity={self.quantity}, "
-            f"price_per_unit={self.price_per_unit})"
-        )
 
 
 @dataclass

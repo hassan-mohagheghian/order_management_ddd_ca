@@ -17,7 +17,12 @@ class OrderRepository(ABC):
 
     @abstractmethod
     def get_by_id(self, order_id: UUID) -> Order:
-        """Retrieve an order by its ID."""
+        """
+        Retrieve an order by its ID.
+
+        Raises:
+            OrderNotFoundError: If no order exists with the given ID
+        """
         pass
 
     @abstractmethod

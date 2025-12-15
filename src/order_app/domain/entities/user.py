@@ -1,14 +1,10 @@
 import datetime
 from dataclasses import dataclass, field
-from enum import Enum, auto
 from typing import Optional
 
+from order_app.domain.value_objects import UserRole
+
 from .entity import Entity
-
-
-class UserRole(Enum):
-    MANAGER = auto()
-    CUSTOMER = auto()
 
 
 @dataclass
