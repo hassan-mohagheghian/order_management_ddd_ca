@@ -1,5 +1,5 @@
 from unittest.mock import MagicMock
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import pytest
 from freezegun import freeze_time
@@ -13,6 +13,7 @@ from order_app.application.dtos.order_dtos import (
 from order_app.domain.entities import order
 from order_app.domain.value_objects.order_status import OrderStatus
 from order_app.interface.controllers.order_controller import (
+    AuthContext,
     CreateOrderRequestData,
     ItemRequestData,
     OrderController,
@@ -33,6 +34,16 @@ def create_order_use_case(order_repository, product_repository):
     return MockCreateOrderUseCase()
 
 
+@pytest.fixture
+def list_order_use_case(order_repository):
+    class MockCreateOrderUseCase:
+        def __init__(self):
+            self.execute = MagicMock()
+            self.order_repository = order_repository
+
+    return MockCreateOrderUseCase()
+
+
 def test_create_order_handler_failure(create_order_use_case):
     create_order_use_case.execute.return_value = Result.failure(Error("error", "code"))
     mock_presenter = MagicMock(spec=OrderPresenter)
@@ -40,13 +51,14 @@ def test_create_order_handler_failure(create_order_use_case):
 
     order_controller = OrderController(
         create_order_use_case=create_order_use_case,
+        list_order_user_case=None,
         presenter=mock_presenter,
     )
     user_id = uuid4()
     product_id_1 = uuid4()
     product_id_2 = uuid4()
     request_data = CreateOrderRequestData(
-        user_id=user_id,
+        auth=AuthContext(user_id=str(user_id), role="customer"),
         items=[
             ItemRequestData(product_id=product_id_1, quantity=1),
             ItemRequestData(product_id=product_id_2, quantity=2),
@@ -71,7 +83,7 @@ def test_create_order_handler_failure(create_order_use_case):
 
 
 @freeze_time("2022-01-01")
-def test_create_order_handler_success(create_order_use_case):
+def test_create_order_handler_success(create_order_use_case, list_order_use_case):
     product_id_1 = uuid4()
     product_id_2 = uuid4()
     user_id = uuid4()
@@ -83,11 +95,12 @@ def test_create_order_handler_success(create_order_use_case):
 
     order_controller = OrderController(
         create_order_use_case=create_order_use_case,
+        list_order_user_case=list_order_use_case,
         presenter=mock_presenter,
     )
 
-    request_data = CreateOrderRequest(
-        user_id=user_id,
+    request_data = CreateOrderRequestData(
+        auth=AuthContext(user_id=str(user_id), role="customer"),
         items=[
             ItemRequest(product_id=product_id_1, quantity=1),
             ItemRequest(product_id=product_id_2, quantity=2),

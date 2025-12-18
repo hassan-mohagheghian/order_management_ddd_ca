@@ -1,17 +1,21 @@
-from abc import ABC
-from dataclasses import dataclass
-from typing import Optional
+from abc import ABC, abstractmethod
 
-from order_app.interface.common.operation_result import ErrorViewModel
+from order_app.application.dtos.order_dtos import OrderResponse
+from order_app.interface.view_models.error_vm import ErrorViewModel
 from order_app.interface.view_models.order_vm import OrderViewModel
 
 
-@dataclass
 class OrderPresenter(ABC):
-    def present_order(self, response: CreateOrderResponse) -> OrderViewModel:
+    @abstractmethod
+    def present_order(order_response: OrderResponse) -> OrderViewModel:
         pass
 
-    def present_error(
-        self, error_msg: str, code: Optional[str] = None
-    ) -> ErrorViewModel:
+    @abstractmethod
+    def present_order_list(
+        order_list_response: list[OrderResponse],
+    ) -> list[OrderViewModel]:
+        pass
+
+    @abstractmethod
+    def present_error(error: str) -> ErrorViewModel:
         pass

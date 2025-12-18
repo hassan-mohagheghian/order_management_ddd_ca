@@ -5,3 +5,4 @@ drf-spectacular[sidecar]>=0.29.0
 # test 
 freezegun>=1.5.5
 pytest>=9.0.2
+pytest-cov>=7.0.0

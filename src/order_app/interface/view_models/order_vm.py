@@ -6,7 +6,7 @@ from typing import Optional
 class OrderViewModel:
     id: str
     user_id: str
-    items = list[dict]
+    items: list[dict]
     created_at: str
     updated_at: Optional[str]
     total_price: str
