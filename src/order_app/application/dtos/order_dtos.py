@@ -35,6 +35,12 @@ class EditOrderRequest:
 
 
 @dataclass
+class ListOrderRequest:
+    user_id: UUID
+    role: UserRole
+
+
+@dataclass
 class OrderResponse:
     order_id: UUID
     user_id: UUID

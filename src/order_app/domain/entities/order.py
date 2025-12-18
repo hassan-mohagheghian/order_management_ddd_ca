@@ -40,6 +40,15 @@ class Order(Entity):
         self._items.append(item)
         self.updated_at = datetime.datetime.now()
 
+    def load_items(self, items: list[tuple[Product, int]]):
+        for item in items:
+            item = OrderItem(
+                product_id=item[0].id,
+                quantity=item[1],
+                price_per_unit=item[0].price,
+            )
+            self._items.append(item)
+
     def remove_item(self, order_item: OrderItem) -> None:
         if order_item in self._items:
             self._items.remove(order_item)
@@ -62,7 +71,3 @@ class Order(Entity):
 
     def __str__(self):
         return f"Order(id={self.id}, user_id={self.user_id}, items:[{', '.join(str(item) for item in self._items)}])"
-
-    def from_django_model(self, order):
-        self.id = order.id
-        self.user_id = order.user_id
