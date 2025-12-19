@@ -67,7 +67,7 @@ def test_edit_order_item(order):
     order.add_item(product=product2, quantity=5)
     assert order.item_count == 2
 
-    order.edit_item(product1.id, 3)
+    order.edit_item(product1, 3)
 
     assert order.items[0].quantity == 3
     assert order.items[1].quantity == 5

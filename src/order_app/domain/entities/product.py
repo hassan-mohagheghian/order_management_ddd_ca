@@ -28,3 +28,9 @@ class Product(Entity):
             )
         self.stock_quantity -= quantity
         self.updated_at = datetime.datetime.now()
+
+    def increase_stock(self, quantity: int) -> None:
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+        self.stock_quantity += quantity
+        self.updated_at = datetime.datetime.now()

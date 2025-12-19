@@ -2,11 +2,12 @@ from dataclasses import dataclass
 from typing import Literal
 from uuid import UUID
 
-from order_app.application.dtos.order_dtos import ItemRequest
+from order_app.application.dtos.order_dtos import EditOrderRequest, ItemRequest
 from order_app.application.use_cases.create_order import (
     CreateOrderRequest,
     CreateOrderUseCase,
 )
+from order_app.application.use_cases.edit_order_use_case import EditOrderUseCase
 from order_app.application.use_cases.list_order_use_case import (
     ListOrderRequest,
     ListOrderUseCase,
@@ -38,6 +39,14 @@ class CreateOrderRequestData:
 
 
 @dataclass
+class EditProductInOrderRequestData:
+    auth: AuthContext
+    order_id: str
+    product_id: str
+    quantity: int
+
+
+@dataclass
 class CreateOrderResponseData:
     order_id: str
 
@@ -52,6 +61,7 @@ class ListOderRequestData:
 class OrderController:
     create_order_use_case: CreateOrderUseCase
     list_order_user_case: ListOrderUseCase
+    edit_order_use_case: EditOrderUseCase
     presenter: OrderPresenter
 
     def handle_create(
@@ -65,6 +75,26 @@ class OrderController:
             ],
         )
         response = self.create_order_use_case.execute(request)
+        if response.is_success:
+            view_model = self.presenter.present_order(response.value)
+            return OperationResult.succeed(view_model)
+        else:
+            error_vm = self.presenter.present_error(
+                response.error.message, response.error.code
+            )
+            return OperationResult.fail(error_vm.message, error_vm.code)
+
+    def handle_edit(
+        self, request_data: EditProductInOrderRequestData
+    ) -> OperationResult[OrderViewModel]:
+        request = EditOrderRequest(
+            order_id=request_data.order_id,
+            user_id=request_data.auth.user_id,
+            role=UserRole.from_str(request_data.auth.role),
+            product_id=request_data.product_id,
+            quantity=request_data.quantity,
+        )
+        response = self.edit_order_use_case.execute(request)
         if response.is_success:
             view_model = self.presenter.present_order(response.value)
             return OperationResult.succeed(view_model)

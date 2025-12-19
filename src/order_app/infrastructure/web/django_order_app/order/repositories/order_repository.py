@@ -18,7 +18,7 @@ class DjangoOrderRepository(OrderRepository):
             id=order.id, user_id=order.user_id
         )
         for item in order.items:
-            OrderItem.objects.update_or_create(
+            order_item, _ = OrderItem.objects.update_or_create(
                 order_id=order.id,
                 product_id=item.product_id,
                 defaults={
@@ -26,6 +26,8 @@ class DjangoOrderRepository(OrderRepository):
                     "price_per_unit": item.price_per_unit.amount,
                 },
             )
+            if order_item.quantity == 0:
+                order_item.delete()
 
     def get_by_id(self, order_id: UUID) -> Order:
         django_order = DjangoOrder.objects.get(id=order_id)

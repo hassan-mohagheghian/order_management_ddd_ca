@@ -151,7 +151,7 @@ def test_edit_product_with_permission_by_customer(order_repository, product_repo
 
     order_repository.get_by_id.assert_called_once_with(order.id)
     product_repository.get_by_id.assert_called_once_with(product1.id)
-    order.edit_item.assert_called_once_with(product1.id, 36)
+    order.edit_item.assert_called_once_with(product1, 36)
     order_repository.save.assert_called_once_with(order)
     assert result.is_success
     assert isinstance(result.value, OrderResponse)

@@ -54,10 +54,16 @@ class Order(Entity):
             self._items.remove(order_item)
             self.updated_at = datetime.datetime.now()
 
-    def edit_item(self, product_id: str, quantity: int) -> None:
+    def edit_item(self, product: Product, new_quantity: int) -> None:
         for item in self._items:
-            if item.product_id == product_id:
-                item.quantity = quantity
+            if item.product_id == product.id:
+                old_quantity = item.quantity
+                delta = new_quantity - old_quantity
+                if delta > 0:
+                    product.decrease_stock(delta)
+                elif delta < 0:
+                    product.increase_stock(-delta)
+                item.quantity = new_quantity
                 self.updated_at = datetime.datetime.now()
                 break
 

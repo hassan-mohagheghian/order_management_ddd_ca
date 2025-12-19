@@ -11,10 +11,11 @@ For run you could follow any oth below path:
 
 ## Feature Status
 
-Until now, all CRUD operation for orders are implemented. but following endpoint have been released:
+Until now, most CRUD operation for orders are implemented as below list:
 
     - create order
     - list order (return all for manager user and owned for customer)
+    - edit an item in order
 
 User management has not been implemented yet. but as an start follow below steps to create user:
 

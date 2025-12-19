@@ -45,6 +45,7 @@ def test_create_order_handler_failure(create_order_use_case):
     order_controller = OrderController(
         create_order_use_case=create_order_use_case,
         list_order_user_case=None,
+        edit_order_use_case=None,
         presenter=mock_presenter,
     )
     user_id = uuid4()
@@ -76,7 +77,7 @@ def test_create_order_handler_failure(create_order_use_case):
 
 
 @freeze_time("2022-01-01")
-def test_create_order_handler_success(create_order_use_case, list_order_use_case):
+def test_create_order_handler_success(create_order_use_case):
     product_id_1 = uuid4()
     product_id_2 = uuid4()
     user_id = uuid4()
@@ -88,7 +89,8 @@ def test_create_order_handler_success(create_order_use_case, list_order_use_case
 
     order_controller = OrderController(
         create_order_use_case=create_order_use_case,
-        list_order_user_case=list_order_use_case,
+        list_order_user_case=None,
+        edit_order_use_case=None,
         presenter=mock_presenter,
     )
 
