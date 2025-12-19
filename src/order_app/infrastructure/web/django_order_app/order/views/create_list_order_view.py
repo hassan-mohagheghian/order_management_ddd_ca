@@ -43,7 +43,10 @@ class CreateListOrderView(generics.CreateAPIView, generics.ListAPIView):
             return Response(data={"order_id": operation_result.success.id})
         else:
             return Response(
-                data={"error": operation_result.error.message},
+                data={
+                    "error": operation_result.error.message,
+                    "code": operation_result.error.code,
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

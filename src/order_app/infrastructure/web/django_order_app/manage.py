@@ -16,9 +16,6 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE", "order_app.infrastructure.web.config.settings"
-    )
     execute_from_command_line(sys.argv)
 
 

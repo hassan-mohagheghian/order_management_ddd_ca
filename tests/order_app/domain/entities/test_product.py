@@ -1,5 +1,6 @@
 import pytest
 
+from order_app.application.exception import InsufficientStockError
 from order_app.domain.entities.product import Product
 
 
@@ -27,5 +28,5 @@ def test_decrease_stock_invalid_quantity(product):
 
 
 def test_decrease_stock_insufficient(product):
-    with pytest.raises(ValueError, match="Insufficient stock to decrease"):
+    with pytest.raises(InsufficientStockError, match="Insufficient stock to decrease"):
         product.decrease_stock(product.stock_quantity + 1)

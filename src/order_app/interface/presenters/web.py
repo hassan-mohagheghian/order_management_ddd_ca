@@ -1,5 +1,6 @@
 from order_app.application.dtos.order_dtos import OrderResponse
 from order_app.interface.presenters.base import OrderPresenter
+from order_app.interface.view_models.error_vm import ErrorViewModel
 from order_app.interface.view_models.order_vm import OrderViewModel
 
 
@@ -18,3 +19,6 @@ class WebOrderPresenter(OrderPresenter):
         order_list_response: list[OrderResponse],
     ) -> list[OrderViewModel]:
         return [WebOrderPresenter.present_order(order) for order in order_list_response]
+
+    def present_error(error, code=None) -> ErrorViewModel:
+        return ErrorViewModel(error, str(code))

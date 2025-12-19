@@ -17,3 +17,9 @@ class ProductNotFoundError(DomainError):
     def __init__(self, order_id: UUID):
         self.order_id = order_id
         super().__init__(f"Product with ID {order_id} not found")
+
+
+class InsufficientStockError(DomainError):
+    def __init__(self, product_id: UUID):
+        self.product_id = product_id
+        super().__init__(f"Product with ID {product_id} is out of stock")

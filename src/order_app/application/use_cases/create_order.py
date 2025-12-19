@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from order_app.application.common.result import Error, Result
 from order_app.application.dtos.order_dtos import CreateOrderRequest, OrderResponse
-from order_app.application.exception import ProductNotFoundError
+from order_app.application.exception import InsufficientStockError, ProductNotFoundError
 from order_app.application.repositories import OrderRepository, ProductRepository
 from order_app.domain.entities.order import Order
 
@@ -21,11 +21,17 @@ class CreateOrderUseCase:
                 product = self.product_repository.get_by_id(product_id)
             except ProductNotFoundError:
                 return Result.failure(Error.not_found("Product", str(product_id)))
-            order.add_item(product, item.quantity)
+            try:
+                order.add_item(product, item.quantity)
+            except InsufficientStockError:
+                return Result.failure(
+                    Error.domain(
+                        message=f"Insufficient stock for {product.id} product. Requested {item.quantity}, available {product.stock_quantity}",
+                    )
+                )
             products.append(product)
 
         for product in products:
-            print(product)
             self.product_repository.save(product)
         self.order_repository.save(order)
         return Result.success(OrderResponse.from_entity(order))

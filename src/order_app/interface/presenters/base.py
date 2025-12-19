@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 from order_app.application.dtos.order_dtos import OrderResponse
 from order_app.interface.view_models.error_vm import ErrorViewModel
@@ -17,5 +18,5 @@ class OrderPresenter(ABC):
         pass
 
     @abstractmethod
-    def present_error(error: str) -> ErrorViewModel:
+    def present_error(error: str, code: Optional[str] = None) -> ErrorViewModel:
         pass

@@ -5,7 +5,7 @@ from uuid import uuid4
 from freezegun import freeze_time
 
 from order_app.application.dtos.order_dtos import ItemRequest
-from order_app.application.exception import ProductNotFoundError
+from order_app.application.exception import InsufficientStockError, ProductNotFoundError
 from order_app.application.use_cases.create_order import (
     CreateOrderRequest,
     CreateOrderUseCase,
@@ -28,6 +28,31 @@ def test_create_order_product_not_found(order_repository, product_repository):
     )
 
     product_repository.get_by_id.side_effect = ProductNotFoundError(product_id)
+
+    result = use_case.execute(request)
+
+    product_repository.get_by_id.assert_called_once_with(product_id)
+    assert not result.is_success
+
+
+def test_create_order_insufficient_stock(order_repository, product_repository):
+    use_case = CreateOrderUseCase(
+        order_repository=order_repository,
+        product_repository=product_repository,
+    )
+
+    user_id = uuid4()
+    product_id = uuid4()
+    product = MagicMock(
+        id=product_id, price=Money(Decimal("100.00")), stock_quantity=100
+    )
+    product.decrease_stock.side_effect = InsufficientStockError(product_id)
+    request = CreateOrderRequest(
+        user_id=user_id,
+        items=[ItemRequest(product_id=product_id, quantity=101)],
+    )
+
+    product_repository.get_by_id.return_value = product
 
     result = use_case.execute(request)
 

@@ -25,16 +25,24 @@ class Error:
     def not_found(cls, entity: str, entity_id: str) -> Self:
         """Create a NOT_FOUND error for a specific entity."""
         return cls(
-            code=ErrorCode.NOT_FOUND,
             message=f"{entity} with id {entity_id} not found",
+            code=ErrorCode.NOT_FOUND,
         )
 
     @classmethod
     def forbidden(cls, entity: str, entity_id: str) -> Self:
         """Create a FORBIDDEN error."""
         return cls(
-            code=ErrorCode.FORBIDDEN,
             message=f"You don't have permission to {entity} with id {entity_id}",
+            code=ErrorCode.FORBIDDEN,
+        )
+
+    @classmethod
+    def domain(cls, message: str) -> Self:
+        """Create a VALIDATION_ERROR error."""
+        return cls(
+            message=message,
+            code=ErrorCode.VALIDATION_ERROR.name,
         )
 
 
