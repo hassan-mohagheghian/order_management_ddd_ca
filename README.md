@@ -18,14 +18,15 @@ Until now, all CRUD operation for orders are implemented. but following endpoint
 
 User management has not been implemented yet. but as an start follow below steps to create user:
 
-    - for login to admin panel: use admin user with similar for pass.
-    - two groups created: manager and user
-    - two user created (admin, customer) and moved to respectively groups:
-    - you can add another user and assign them in any of manager or customer group
+    - for login to admin panel: use admin user with similar words for username and pass.
+    - two groups created: **manager** and **customer**
+    - two user created (manager, customer) and moved to respectively group.
+    - you can add another user and assign them in any of manager or customer group.
+    - to work with rest API endpoint use user's Tokens.
+    - 
 
 ## Project Structure
 
-    ```bash
     root/
     ├── src/
     │    └── order_app/
@@ -43,9 +44,9 @@ User management has not been implemented yet. but as an start follow below steps
     │                 └─── django_order_app/ --> django app with repositories implementation.
     │    
     └── tests/ --> test with similar folder structure to src folder
-    ```
 
-    ```bash
+## Request/Response Flow
+
     HTTP Request (Django)
             ↓
     Interface Layer
@@ -66,50 +67,45 @@ User management has not been implemented yet. but as an start follow below steps
     ViewModel
             ↓
     HTTP Response (Django)
-    ```
 
 ## Setup / Installation (Local)
 
-1. clone the repository
+### clone the repository
 
-    ```bash
     git clone https://github.com/hassan-mohagheghian/oder_management_ddd_ca
     cd oder_management_ddd_ca
-    ```
 
-1. Create a virtual environment in the root folder
+### Create a virtual environment in the root folder
 
-    ```bash
     python -m venv .venv
     source .venv/bin/activate  # Linux/macOS
-    ```
 
-1. Use PYTHONPATH
+### Use PYTHONPATH
 
-    ```bash
     export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"  # Linux/macOS
-    ```
 
-1. Install dependencies
+### Install dependencies
 
-    ```bash
     pip install -r requirements.txt
-    ```
 
-1. Running the Application
+### Running the Application
 
-    ```bash
-    python -m src.main
-    ```
+    python src/order_app/infrastructure/web/django_order_app/manage.py runserver
 
-1. Running Tests
+### Running Tests
 
-    ```bash
     pytest
-    ```
 
 ## Run with Docker
 
-    ```bash
     docker compose up
-    ```
+
+## Usage
+
+### access to admin panel
+
+    http://127.0.0.1:8000/admin
+
+### access to REST api OpenAPI panel
+
+    http://127.0.0.1:8000/api/schema/swagger-ui
