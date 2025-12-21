@@ -1,15 +1,19 @@
 version: "3.9"
 
 services:
-  web:
-    build: .
+  web-dev:
+    build:
+      context: .
+      args:
+        - ENV=dev
     entrypoint:
       /app/entrypoint.sh
     ports:
+      - "5678:5678"
       - "8000:8000"
     volumes:
       - ./src:/app/src
     environment:
         - PYTHONPATH=/app/src
-        - ENV=prod
-    profiles: ['prod']
+        - ENV=dev
+    profiles: ['dev']

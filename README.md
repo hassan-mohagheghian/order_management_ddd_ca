@@ -100,16 +100,16 @@ User management has not been implemented yet. but as an start follow below steps
 
     pytest
 
-## Run with Docker
+## Run with Docker (Development)
 
-    docker compose up
+    docker compose --profile dev up
+
+## Run with Docker (Production)
+
+    docker compose --profile prod up
 
 ## Usage
 
-### access to admin panel
-
-    http://127.0.0.1:8000/admin
-
 ### access to REST api OpenAPI panel
 
-    http://127.0.0.1:8000/api/schema/swagger-ui
+    http://127.0.0.1:8000/docs
