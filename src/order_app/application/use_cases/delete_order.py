@@ -15,10 +15,18 @@ class DeleteOrderUseCase:
         try:
             order = self.order_repository.get_by_id(request.order_id)
         except OrderNotFoundError:
-            return Result.failure(Error.not_found("Order", str(request.order_id)))
+            return Result.failure(
+                Error.not_found(
+                    entity="Order", attr_name="id", attr_value=str(request.order_id)
+                )
+            )
 
         if request.role != UserRole.MANAGER and order.user_id != request.user_id:
-            return Result.failure(Error.forbidden("Order", str(request.order_id)))
+            return Result.failure(
+                Error.forbidden(
+                    entity="Order", action="delete", entity_id=str(request.order_id)
+                )
+            )
 
         self.order_repository.delete(request.order_id)
         return Result.success(True)

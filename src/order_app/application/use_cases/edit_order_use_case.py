@@ -16,15 +16,27 @@ class EditOrderUseCase:
         try:
             order = self.order_repository.get_by_id(request.order_id)
         except OrderNotFoundError:
-            return Result.failure(Error.not_found("Order", str(request.order_id)))
+            return Result.failure(
+                Error.not_found(
+                    entity="Order", attr_name="id", attr_value=str(request.order_id)
+                )
+            )
 
         try:
             product = self.product_repository.get_by_id(request.product_id)
         except ProductNotFoundError:
-            return Result.failure(Error.not_found("Product", str(request.product_id)))
+            return Result.failure(
+                Error.not_found(
+                    entity="Product", attr_name="id", attr_value=str(request.product_id)
+                )
+            )
 
         if request.role != UserRole.MANAGER and order.user_id != request.user_id:
-            return Result.failure(Error.forbidden("Order", str(request.order_id)))
+            return Result.failure(
+                Error.forbidden(
+                    entity="Order", action="edit", entity_id=str(request.order_id)
+                )
+            )
 
         order.edit_item(product, request.quantity)
         self.product_repository.save(product)

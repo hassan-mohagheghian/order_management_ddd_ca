@@ -21,3 +21,14 @@ class UserRepository(ABC):
         """
 
         pass
+
+    @abstractmethod
+    def get_by_email(self, user_id: UUID) -> Optional[User]:
+        """
+        Retrieve a user by their email.
+
+        Raises:
+            UserNotFoundError: If no user exists with the given email
+        """
+
+        pass

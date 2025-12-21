@@ -10,7 +10,9 @@ class ErrorCode(Enum):
 
     NOT_FOUND = auto()
     FORBIDDEN = auto()
-    VALIDATION_ERROR = auto()
+    VALIDATION = auto()
+    ALREADY_EXISTS = auto()
+    DOMAIN = auto()
 
 
 @dataclass(frozen=True)
@@ -22,27 +24,63 @@ class Error:
     details: Optional[dict[str, Any]] = None
 
     @classmethod
-    def not_found(cls, entity: str, entity_id: str) -> Self:
+    def not_found(cls, entity: str, attr_name: str, attr_value: str) -> Self:
         """Create a NOT_FOUND error for a specific entity."""
         return cls(
-            message=f"{entity} with id {entity_id} not found",
+            message=f"{entity} not found",
             code=ErrorCode.NOT_FOUND,
+            details={"attr_name": attr_name, "attr_value": attr_value}
+            if attr_name
+            else None,
         )
 
     @classmethod
-    def forbidden(cls, entity: str, entity_id: str) -> Self:
+    def already_exists(cls, entity: str, attr_name: str, attr_value: str) -> Self:
+        """Create an ALREADY_EXISTS error."""
+        return cls(
+            message=f"{entity} already exists",
+            code=ErrorCode.ALREADY_EXISTS,
+            details={"attr_name": attr_name, "attr_value": attr_value}
+            if attr_name
+            else None,
+        )
+
+    @classmethod
+    def forbidden(
+        cls,
+        *,
+        entity: str,
+        action: str | None = None,
+        entity_id: str | None = None,
+    ) -> Self:
         """Create a FORBIDDEN error."""
         return cls(
-            message=f"You don't have permission to {entity} with id {entity_id}",
             code=ErrorCode.FORBIDDEN,
+            message="You do not have permission to perform this action",
+            details={
+                "entity": entity,
+                "action": action,
+                "entity_id": entity_id,
+            }
+            if entity
+            else None,
+        )
+
+    @classmethod
+    def validation(cls, message: str) -> Self:
+        """Create a VALIDATION error."""
+        return cls(
+            code=ErrorCode.VALIDATION,
+            message="Validation failed",
+            details={"detail": message},
         )
 
     @classmethod
     def domain(cls, message: str) -> Self:
-        """Create a VALIDATION_ERROR error."""
         return cls(
-            message=message,
-            code=ErrorCode.VALIDATION_ERROR.name,
+            code=ErrorCode.DOMAIN,
+            message="Domain rule violated",
+            details={"detail": message},
         )
 
 

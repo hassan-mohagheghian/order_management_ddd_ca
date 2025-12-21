@@ -1,3 +1,4 @@
+from typing import Optional
 from uuid import UUID
 
 
@@ -5,6 +6,13 @@ class DomainError(Exception):
     """Base class for domain-specific errors."""
 
     pass
+
+
+class UserNotFoundError(DomainError):
+    def __init__(self, user_id: Optional[UUID] = None, email: Optional[str] = None):
+        self.user_id = user_id
+        self.email = email
+        super().__init__("User not found")
 
 
 class OrderNotFoundError(DomainError):

@@ -20,7 +20,11 @@ class CreateOrderUseCase:
             try:
                 product = self.product_repository.get_by_id(product_id)
             except ProductNotFoundError:
-                return Result.failure(Error.not_found("Product", str(product_id)))
+                return Result.failure(
+                    Error.not_found(
+                        entity="Product", attr_name="id", attr_value=str(product_id)
+                    )
+                )
             try:
                 order.add_item(product, item.quantity)
             except InsufficientStockError:

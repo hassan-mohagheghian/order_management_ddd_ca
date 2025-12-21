@@ -29,7 +29,9 @@ def test_delete_order_without_permission_raises(order_repository):
     order_repository.get_by_id.assert_called_once_with(order_id)
     order_repository.delete.assert_not_called()
     assert not result.is_success
-    assert result.error == Error.forbidden("Order", str(order_id))
+    assert result.error == Error.forbidden(
+        entity="Order", action="delete", entity_id=str(order_id)
+    )
 
 
 def test_delete_non_existing_order_raises(order_repository):
@@ -47,7 +49,9 @@ def test_delete_non_existing_order_raises(order_repository):
     order_repository.get_by_id.assert_called_once_with(order_id)
     order_repository.delete.assert_not_called()
     assert not result.is_success
-    assert result.error == Error.not_found("Order", str(order_id))
+    assert result.error == Error.not_found(
+        entity="Order", attr_name="id", attr_value=str(order_id)
+    )
 
 
 def test_delete_existing_order_with_permission_by_customer(order_repository):

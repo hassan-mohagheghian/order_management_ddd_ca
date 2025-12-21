@@ -4,6 +4,17 @@ import pytest
 
 
 @pytest.fixture
+def user_repository():
+    class MockUserRepository:
+        def __init__(self):
+            self.save = MagicMock()
+            self.get_by_id = MagicMock()
+            self.get_by_email = MagicMock()
+
+    return MockUserRepository()
+
+
+@pytest.fixture
 def order_repository():
     class MockOrderRepository:
         def __init__(self):
