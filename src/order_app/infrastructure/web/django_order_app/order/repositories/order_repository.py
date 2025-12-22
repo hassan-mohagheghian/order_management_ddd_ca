@@ -23,7 +23,7 @@ class DjangoOrderRepository(OrderRepository):
                 product_id=item.product_id,
                 defaults={
                     "quantity": item.quantity,
-                    "price_per_unit": item.price_per_unit.amount,
+                    "unit_price": item.unit_price.amount,
                 },
             )
             if order_item.quantity == 0:

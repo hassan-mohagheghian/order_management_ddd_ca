@@ -7,7 +7,7 @@ from .money import Money
 class OrderItem:
     product_id: str
     quantity: int
-    price_per_unit: Money
+    unit_price: Money
 
     def total_price(self) -> Money:
-        return self.price_per_unit * self.quantity
+        return self.unit_price * self.quantity

@@ -35,7 +35,7 @@ class Order(Entity):
         item = OrderItem(
             product_id=product.id,
             quantity=quantity,
-            price_per_unit=product.price,
+            unit_price=product.price,
         )
         self._items.append(item)
         self.updated_at = datetime.datetime.now()
@@ -45,7 +45,7 @@ class Order(Entity):
             item = OrderItem(
                 product_id=item[0].id,
                 quantity=item[1],
-                price_per_unit=item[0].price,
+                unit_price=item[0].price,
             )
             self._items.append(item)
 

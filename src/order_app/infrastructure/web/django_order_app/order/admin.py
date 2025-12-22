@@ -5,11 +5,11 @@ from .models import Order, OrderItem
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
-    fields = ("product", "quantity", "price_per_unit", "total_price")
-    readonly_fields = ("price_per_unit", "total_price")
+    fields = ("product", "quantity", "unit_price", "total_price")
+    readonly_fields = ("unit_price", "total_price")
     extra = 0
 
-    def price_per_unit(self, obj):
+    def unit_price(self, obj):
         return obj.product.price
 
 

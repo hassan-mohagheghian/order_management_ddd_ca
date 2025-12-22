@@ -31,7 +31,7 @@ def test_add_order_item(order):
     assert order.item_count == 1
     assert order.total_price == Money(Decimal("30.00"))
     assert order.items[0] == OrderItem(
-        product_id=product.id, quantity=2, price_per_unit=product.price
+        product_id=product.id, quantity=2, unit_price=product.price
     )
 
 
@@ -53,8 +53,8 @@ def test_load_items(order):
     order.load_items(items=[(product_1, 10), (product_2, 5)])
     assert order.item_count == 2
     assert order.get_items() == [
-        OrderItem(product_id=product_1.id, quantity=10, price_per_unit=product_1.price),
-        OrderItem(product_id=product_2.id, quantity=5, price_per_unit=product_2.price),
+        OrderItem(product_id=product_1.id, quantity=10, unit_price=product_1.price),
+        OrderItem(product_id=product_2.id, quantity=5, unit_price=product_2.price),
     ]
 
 

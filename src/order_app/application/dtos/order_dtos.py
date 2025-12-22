@@ -61,7 +61,7 @@ class OrderResponse:
                 {
                     "product_id": item.product_id,
                     "quantity": item.quantity,
-                    "price_per_unit": str(item.price_per_unit),
+                    "unit_price": str(item.unit_price),
                 }
                 for item in order._items
             ],

@@ -100,11 +100,11 @@ def test_create_order(order_repository, product_repository):
         {
             "product_id": product_id_1,
             "quantity": 2,
-            "price_per_unit": str(Money(Decimal("100"))),
+            "unit_price": str(Money(Decimal("100"))),
         },
         {
             "product_id": product_id_2,
             "quantity": 1,
-            "price_per_unit": str(Money(Decimal("50"))),
+            "unit_price": str(Money(Decimal("50"))),
         },
     ]
