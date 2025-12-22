@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, Self
+from typing import Self
 from uuid import UUID
 
 from order_app.domain.entities.order import Order
@@ -49,7 +49,7 @@ class OrderResponse:
     total_price: str
     item_count: int
     created_at: str
-    updated_at: Optional[str]
+    updated_at: str | None
 
     @classmethod
     def from_entity(cls, order: Order) -> Self:

@@ -2,7 +2,6 @@ import datetime
 from dataclasses import dataclass, field
 from decimal import Decimal
 from functools import reduce
-from typing import Optional
 from uuid import UUID
 
 from order_app.domain.value_objects import Money, OrderItem
@@ -20,7 +19,7 @@ class Order(Entity):
     created_at: datetime.datetime = field(
         default_factory=lambda: datetime.datetime.now()
     )
-    updated_at: Optional[datetime.datetime] = None
+    updated_at: datetime.datetime | None = None
 
     @property
     def total_price(self) -> Money:

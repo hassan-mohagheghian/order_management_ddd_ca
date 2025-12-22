@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Generic, Optional, TypeVar
+from typing import Generic, TypeVar
 
 from order_app.interface.view_models.error_vm import ErrorViewModel
 
@@ -8,12 +8,10 @@ T = TypeVar("T")
 
 @dataclass
 class OperationResult(Generic[T]):
-    _success: Optional[T] = None
-    _error: Optional[ErrorViewModel] = None
+    _success: T | None = None
+    _error: ErrorViewModel | None = None
 
-    def __init__(
-        self, success: Optional[T] = None, error: Optional[ErrorViewModel] = None
-    ):
+    def __init__(self, success: T | None = None, error: ErrorViewModel | None = None):
         if (success is None and error is None) or (
             success is not None and error is not None
         ):
@@ -47,6 +45,6 @@ class OperationResult(Generic[T]):
         return cls(success=value)
 
     @classmethod
-    def fail(cls, message: str, code: Optional[str] = None) -> "OperationResult[T]":
+    def fail(cls, message: str, code: str | None = None) -> "OperationResult[T]":
         """Creates a failed result with the given error message and optional code."""
         return cls(error=ErrorViewModel(message, code))

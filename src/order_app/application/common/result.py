@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any, Generic, Optional, Self, TypeVar
+from typing import Any, Generic, Self, TypeVar
 
 T = TypeVar("T")  # Success type
 
@@ -21,7 +21,7 @@ class Error:
 
     code: ErrorCode
     message: str
-    details: Optional[dict[str, Any]] = None
+    details: dict[str, Any] | None = None
 
     @classmethod
     def not_found(cls, entity: str, attr_name: str, attr_value: str) -> Self:
@@ -88,8 +88,8 @@ class Error:
 class Result(Generic[T]):
     """Represents the outcome of a use case execution as an Either type."""
 
-    _value: Optional[T] = None
-    _error: Optional[Error] = None
+    _value: T | None = None
+    _error: Error | None = None
 
     def __post_init__(self):
         if (self._value is None and self._error is None) or (

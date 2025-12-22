@@ -1,6 +1,5 @@
 import datetime
 from dataclasses import dataclass, field
-from typing import Optional
 
 from order_app.domain.exception import InsufficientStockError
 from order_app.domain.value_objects.money import Money
@@ -17,7 +16,7 @@ class Product(Entity):
     created_at: datetime.datetime = field(
         default_factory=lambda: datetime.datetime.now()
     )
-    updated_at: Optional[datetime.datetime] = None
+    updated_at: datetime.datetime | None = None
 
     def decrease_stock(self, quantity: int) -> None:
         if quantity <= 0:

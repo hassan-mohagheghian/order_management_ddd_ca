@@ -1,4 +1,3 @@
-from typing import Optional
 from uuid import UUID
 
 
@@ -9,7 +8,7 @@ class DomainError(Exception):
 
 
 class UserNotFoundError(DomainError):
-    def __init__(self, user_id: Optional[UUID] = None, email: Optional[str] = None):
+    def __init__(self, user_id: UUID | None = None, email: str | None = None):
         self.user_id = user_id
         self.email = email
         super().__init__("User not found")

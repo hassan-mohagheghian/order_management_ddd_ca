@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 from uuid import UUID
 
 from order_app.domain.entities.user import User
@@ -12,7 +11,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, user_id: UUID) -> Optional[User]:
+    def get_by_id(self, user_id: UUID) -> User | None:
         """
         Retrieve a user by their unique ID.
 
@@ -23,7 +22,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_email(self, user_id: UUID) -> Optional[User]:
+    def get_by_email(self, user_id: UUID) -> User | None:
         """
         Retrieve a user by their email.
 
