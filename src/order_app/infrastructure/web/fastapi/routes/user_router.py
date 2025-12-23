@@ -6,7 +6,7 @@ from starlette import status
 
 from order_app.infrastructure.composition_root import CompositionRoot
 from order_app.infrastructure.web.fastapi.dependencies import get_composition_root
-from order_app.interface.controllers.user_controller import RegisterUserInputDto
+from order_app.interface.controllers.user.register_user import RegisterUserInputDto
 
 router = APIRouter()
 
@@ -26,7 +26,7 @@ def register_user(
     request: RegisterUserRequest,
     composition_root: CompositionRoot = Depends(get_composition_root),
 ):
-    operation_result = composition_root.user_controller.handle_register_user(
+    operation_result = composition_root.user_controller.handle(
         RegisterUserInputDto(
             name=request.name, email=request.email, password=request.password
         )

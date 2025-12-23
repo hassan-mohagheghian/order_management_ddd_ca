@@ -4,10 +4,9 @@ import pytest
 
 from order_app.application.common.result import Error, Result
 from order_app.application.dtos.user_dtos import RegisterUserRequestDto
-from order_app.interface.controllers.order_controller import CreateOrderRequestData
-from order_app.interface.controllers.user_controller import (
+from order_app.interface.controllers.user.register_user import (
+    RegisterUserController,
     RegisterUserInputDto,
-    UserController,
 )
 from order_app.interface.presenters.base.user import UserPresenter
 from order_app.interface.view_models.error_vm import ErrorViewModel
@@ -28,7 +27,7 @@ def test_register_user_handler_failure(register_user_use_case):
     mock_presenter = MagicMock(spec=UserPresenter)
     mock_presenter.present_error.return_value = ErrorViewModel("errordata", "codedata")
 
-    user_controller = UserController(
+    user_controller = RegisterUserController(
         register_user_use_case=register_user_use_case,
         presenter=mock_presenter,
     )
@@ -38,7 +37,7 @@ def test_register_user_handler_failure(register_user_use_case):
         password="password",
     )
 
-    operation_result = user_controller.handle_register_user(input=request_data)
+    operation_result = user_controller.handle(input=request_data)
 
     register_user_use_case.execute.assert_called_once_with(
         RegisterUserRequestDto(name="name", email="email", password="password")
@@ -56,7 +55,7 @@ def test_register_user_handler_success(register_user_use_case):
     user_view_model = MagicMock()
     mock_presenter.present_user.return_value = user_view_model
 
-    user_controller = UserController(
+    user_controller = RegisterUserController(
         register_user_use_case=register_user_use_case,
         presenter=mock_presenter,
     )
@@ -66,7 +65,7 @@ def test_register_user_handler_success(register_user_use_case):
         password="password",
     )
 
-    operation_result = user_controller.handle_register_user(input=request_data)
+    operation_result = user_controller.handle(input=request_data)
 
     register_user_use_case.execute.assert_called_once_with(
         RegisterUserRequestDto(name="name", email="email", password="password")

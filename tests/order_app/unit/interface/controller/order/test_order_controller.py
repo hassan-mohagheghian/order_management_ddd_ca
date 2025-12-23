@@ -6,7 +6,7 @@ from freezegun import freeze_time
 
 from order_app.application.common.result import Error, Result
 from order_app.application.dtos.order_dtos import CreateOrderRequest, ItemRequest
-from order_app.interface.controllers.order_controller import (
+from order_app.interface.controllers.order.order_controller import (
     AuthContext,
     CreateOrderRequestData,
     ItemRequestData,

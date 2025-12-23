@@ -11,8 +11,8 @@ from order_app.application.use_cases.delete_order import DeleteOrderUseCase
 from order_app.application.use_cases.edit_order_use_case import EditOrderUseCase
 from order_app.application.use_cases.list_order_use_case import ListOrderUseCase
 from order_app.application.use_cases.users.register_user import RegisterUserUseCase
-from order_app.interface.controllers.order_controller import OrderController
-from order_app.interface.controllers.user_controller import UserController
+from order_app.interface.controllers.order.order_controller import OrderController
+from order_app.interface.controllers.user.register_user import RegisterUserController
 from order_app.interface.presenters.base import OrderPresenter, UserPresenter
 
 
@@ -50,6 +50,6 @@ class CompositionRoot:
             delete_order_use_case=delete_order_use_case,
             presenter=self.order_presenter,
         )
-        self.user_controller = UserController(
+        self.user_controller = RegisterUserController(
             register_user_use_case=register_user_use_case, presenter=self.user_presenter
         )

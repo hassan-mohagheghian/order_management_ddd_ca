@@ -15,13 +15,11 @@ class RegisterUserInputDto:
 
 
 @dataclass
-class UserController:
+class RegisterUserController:
     register_user_use_case: RegisterUserUseCase
     presenter: UserPresenter
 
-    def handle_register_user(
-        self, input: RegisterUserInputDto
-    ) -> OperationResult[UserViewModel]:
+    def handle(self, input: RegisterUserInputDto) -> OperationResult[UserViewModel]:
         request_dto = RegisterUserRequestDto(
             name=input.name, email=input.email, password=input.password
         )
