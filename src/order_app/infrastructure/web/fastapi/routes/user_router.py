@@ -5,7 +5,6 @@ from pydantic import BaseModel, EmailStr
 from starlette import status
 
 from order_app.infrastructure.composition_root import CompositionRoot
-from order_app.infrastructure.web.fastapi.composition_root import composition_root
 from order_app.infrastructure.web.fastapi.dependencies import get_composition_root
 from order_app.interface.controllers.user_controller import RegisterUserInputDto
 
@@ -24,7 +23,8 @@ class RegisterUserResponse(BaseModel):
 
 @router.post("/register", response_model=RegisterUserResponse, status_code=201)
 def register_user(
-    request: RegisterUserRequest, root: CompositionRoot = Depends(get_composition_root)
+    request: RegisterUserRequest,
+    composition_root: CompositionRoot = Depends(get_composition_root),
 ):
     operation_result = composition_root.user_controller.handle_register_user(
         RegisterUserInputDto(

@@ -1,16 +1,19 @@
+import sqlite3
+from dataclasses import dataclass
 from sqlite3 import IntegrityError
 
 from order_app.application.repositories.user_repository import UserRepository
 from order_app.domain.entities.user import User
 from order_app.domain.exception import UserAlreadyExistsError, UserNotFoundError
 from order_app.domain.value_objects.user_role import UserRole
-from order_app.infrastructure.persistence.sqlite.db import get_connection
 
 
+@dataclass
 class SqliteUserRepository(UserRepository):
+    connection: sqlite3.Connection
+
     def create(self, user: User) -> User:
-        conn = get_connection()
-        cursor = conn.cursor()
+        cursor = self.connection.cursor()
         try:
             cursor.execute(
                 """
@@ -25,7 +28,7 @@ class SqliteUserRepository(UserRepository):
                     user.role.name,
                 ),
             )
-            conn.commit()
+            self.connection.commit()
         except IntegrityError as e:
             if "UNIQUE constraint failed: users.email" in str(
                 e
@@ -35,15 +38,12 @@ class SqliteUserRepository(UserRepository):
                 raise e
         else:
             return user
-        finally:
-            conn.close()
 
     def update(self, user):
         return super().update(user)
 
     def get_by_email(self, email) -> User:
-        con = get_connection()
-        cursor = con.cursor()
+        cursor = self.connection.cursor()
         cursor.execute(
             """
         SELECT id, name, email, password_hash, role
@@ -66,4 +66,5 @@ class SqliteUserRepository(UserRepository):
             )
 
     def get_by_id(self, user_id):
+        return super().get_by_id(user_id)
         return super().get_by_id(user_id)

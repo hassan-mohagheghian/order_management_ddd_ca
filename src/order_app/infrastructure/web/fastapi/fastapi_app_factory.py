@@ -15,6 +15,7 @@ def create_web_app(composition_root: CompositionRoot, testing: bool = False):
     app.dependency_overrides[get_composition_root] = lambda: composition_root
     if testing:
         app.testing = True
+    else:
         init_db()
     app.include_router(user_router, prefix="/users")
     return app
