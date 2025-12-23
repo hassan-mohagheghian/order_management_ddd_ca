@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from order_app.application.use_cases.list_order_use_case import (
+from order_app.application.use_cases.order.list_order_use_case import (
     ListOrderRequest,
     ListOrderUseCase,
 )

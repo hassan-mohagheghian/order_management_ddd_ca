@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 from uuid import uuid4
 
 from order_app.application.common.result import Error
-from order_app.application.use_cases.delete_order import (
+from order_app.application.use_cases.order.delete_order import (
     DeleteOrderRequest,
     DeleteOrderUseCase,
 )

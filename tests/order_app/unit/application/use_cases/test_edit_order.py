@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from order_app.application.common.result import Error
 from order_app.application.dtos.order_dtos import OrderResponse
-from order_app.application.use_cases.edit_order_use_case import (
+from order_app.application.use_cases.order.edit_order_use_case import (
     EditOrderRequest,
     EditOrderUseCase,
 )

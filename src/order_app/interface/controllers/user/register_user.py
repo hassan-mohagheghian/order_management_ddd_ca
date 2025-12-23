@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from order_app.application.dtos.user_dtos import RegisterUserRequestDto
-from order_app.application.use_cases.users.register_user import RegisterUserUseCase
+from order_app.application.use_cases.user.register import RegisterUserUseCase
 from order_app.interface.common.operation_result import OperationResult
 from order_app.interface.presenters.base.user import UserPresenter
 from order_app.interface.view_models.user_vm import UserViewModel

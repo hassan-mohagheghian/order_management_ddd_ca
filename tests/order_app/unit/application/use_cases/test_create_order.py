@@ -5,7 +5,7 @@ from uuid import uuid4
 from freezegun import freeze_time
 
 from order_app.application.dtos.order_dtos import ItemRequest
-from order_app.application.use_cases.create_order import (
+from order_app.application.use_cases.order.create_order import (
     CreateOrderRequest,
     CreateOrderUseCase,
 )

@@ -2,7 +2,7 @@ from freezegun import freeze_time
 
 from order_app.application.common.result import Error, ErrorCode
 from order_app.application.dtos.user_dtos import RegisterUserRequestDto, UserResponse
-from order_app.application.use_cases.users import RegisterUserUseCase
+from order_app.application.use_cases.user import RegisterUserUseCase
 from order_app.domain.entities.user import User
 from order_app.domain.exception import UserNotFoundError
 from order_app.domain.value_objects.user_role import UserRole
