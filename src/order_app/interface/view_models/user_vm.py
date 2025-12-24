@@ -13,6 +13,6 @@ class UserViewModel:
 @dataclass
 class LoginUserViewModel:
     user: UserViewModel
-    token: str
+    access_token: str
     expires_in: int
     token_type: Literal["Bearer"] = field(default="Bearer")

@@ -15,8 +15,8 @@ class LoginUserInputDto:
 
 @dataclass
 class LoginUserController:
-    presenter: LoginPresenter
     login_user_use_case: LoginUserUseCase
+    presenter: LoginPresenter
 
     def handle(self, input: LoginUserInputDto) -> OperationResult[LoginUserViewModel]:
         request_dto = LoginUserRequestDto(email=input.email, password=input.password)

@@ -1,7 +1,5 @@
 from unittest.mock import MagicMock
 
-import pytest
-
 from order_app.application.common.result import Error, Result
 from order_app.application.dtos.user.register import RegisterUserRequestDto
 from order_app.interface.controllers.user.register_user import (
@@ -10,16 +8,6 @@ from order_app.interface.controllers.user.register_user import (
 )
 from order_app.interface.presenters.base.user import RegisterPresenter
 from order_app.interface.view_models.error_vm import ErrorViewModel
-
-
-@pytest.fixture
-def register_user_use_case(user_repository):
-    class MockRegisterUserUseCase:
-        def __init__(self):
-            self.execute = MagicMock()
-            self.user_repository = user_repository
-
-    return MockRegisterUserUseCase()
 
 
 def test_register_user_handler_failure(register_user_use_case):

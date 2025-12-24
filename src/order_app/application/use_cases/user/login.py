@@ -8,7 +8,7 @@ from order_app.application.dtos.user.login import (
 from order_app.application.ports.jwt_service import JwtService
 from order_app.application.ports.password_hasher import PasswordHasher
 from order_app.application.repositories.user_repository import UserRepository
-from order_app.domain.exceptions import InvalidTokenError, UserNotFoundError
+from order_app.domain.exceptions import UserNotFoundError
 
 
 @dataclass
