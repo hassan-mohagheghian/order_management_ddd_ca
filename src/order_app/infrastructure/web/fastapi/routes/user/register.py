@@ -1,14 +1,14 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import Depends, HTTPException
 from pydantic import BaseModel, EmailStr
 from starlette import status
 
 from order_app.infrastructure.composition_root import CompositionRoot
 from order_app.infrastructure.web.fastapi.dependencies import get_composition_root
-from order_app.interface.controllers.user.register_user import RegisterUserInputDto
 
-router = APIRouter()
+# from order_app.infrastructure.web.fastapi.routes.user import user_router
+from order_app.interface.controllers.user.register_user import RegisterUserInputDto
 
 
 class RegisterUserRequest(BaseModel):
@@ -21,7 +21,7 @@ class RegisterUserResponse(BaseModel):
     user_id: UUID
 
 
-@router.post("/register", response_model=RegisterUserResponse, status_code=201)
+# @user_router.post("/register", response_model=RegisterUserResponse, status_code=201)
 def register_user(
     request: RegisterUserRequest,
     composition_root: CompositionRoot = Depends(get_composition_root),
