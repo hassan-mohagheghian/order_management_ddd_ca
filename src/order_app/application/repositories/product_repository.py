@@ -8,11 +8,11 @@ class ProductRepository(ABC):
     @abstractmethod
     def create(self, product: Product) -> None:
         """Save a product to the repository."""
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     def update(self, product: Product) -> None:
         """Update a product in the repository."""
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def get_by_id(self, product_id: UUID) -> Product | None:
@@ -22,4 +22,4 @@ class ProductRepository(ABC):
         Raises:
             ProductNotFoundError: If no product exists with the given ID
         """
-        pass
+        raise NotImplementedError  # pragma: no cover

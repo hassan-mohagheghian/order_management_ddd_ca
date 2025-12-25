@@ -8,18 +8,18 @@ from order_app.interface.view_models.order_vm import OrderViewModel
 class OrderPresenter(ABC):
     @abstractmethod
     def present_order(order_response: OrderResponse) -> OrderViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def present_order_list(
         order_list_response: list[OrderResponse],
     ) -> list[OrderViewModel]:
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def present_remove(result: bool) -> list[OrderViewModel]:
-        return result
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def present_error(error: str, code: str | None = None) -> ErrorViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover

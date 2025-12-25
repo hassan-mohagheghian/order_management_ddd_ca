@@ -13,7 +13,7 @@ class UserRepository(ABC):
         Raises:
             UserAlreadyExistsError: If a user with the same email already exists
         """
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     def update(self, user: User) -> User:
         """
@@ -22,7 +22,7 @@ class UserRepository(ABC):
         Raises:
             UserNotFoundError: If no user exists with the given ID
         """
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def get_by_id(self, user_id: UUID) -> User | None:
@@ -33,7 +33,7 @@ class UserRepository(ABC):
             UserNotFoundError: If no user exists with the given ID
         """
 
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def get_by_email(self, email: str) -> User | None:
@@ -44,4 +44,4 @@ class UserRepository(ABC):
             UserNotFoundError: If no user exists with the given email
         """
 
-        pass
+        raise NotImplementedError  # pragma: no cover

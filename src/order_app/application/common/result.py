@@ -67,15 +67,6 @@ class Error:
         )
 
     @classmethod
-    def validation(cls, message: str) -> Self:
-        """Create a VALIDATION error."""
-        return cls(
-            code=ErrorCode.VALIDATION,
-            message="Validation failed",
-            details={"detail": message},
-        )
-
-    @classmethod
     def domain(cls, message: str | None = None) -> Self:
         return cls(code=ErrorCode.DOMAIN, message=message)
 

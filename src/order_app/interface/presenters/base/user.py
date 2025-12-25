@@ -12,18 +12,18 @@ from order_app.interface.view_models.user_vm import (
 class RegisterPresenter(ABC):
     @abstractmethod
     def present_success(self, user_response: UserResponse) -> RegisterUserViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def present_error(self, error: str, code: str | None = None) -> ErrorViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover
 
 
 class LoginPresenter(ABC):
     @abstractmethod
     def present_success(self, user: LoginUserResponseDto) -> LoginUserViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover
 
     @abstractmethod
     def present_error(self, error: str, code: str | None = None) -> ErrorViewModel:
-        pass
+        raise NotImplementedError  # pragma: no cover
