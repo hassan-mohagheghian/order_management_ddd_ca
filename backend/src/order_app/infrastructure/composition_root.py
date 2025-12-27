@@ -6,11 +6,11 @@ from order_app.application.repositories import (
     ProductRepository,
     UserRepository,
 )
+from order_app.application.use_cases.auth.login import LoginUserUseCase
 from order_app.application.use_cases.order.create_order import CreateOrderUseCase
 from order_app.application.use_cases.order.delete_order import DeleteOrderUseCase
 from order_app.application.use_cases.order.edit_order_use_case import EditOrderUseCase
 from order_app.application.use_cases.order.list_order_use_case import ListOrderUseCase
-from order_app.application.use_cases.user.login import LoginUserUseCase
 from order_app.application.use_cases.user.register import RegisterUserUseCase
 from order_app.infrastructure.security.argon2_hasher import Argon2PasswordHasher
 from order_app.infrastructure.security.pyjwt_service import PyJWTService

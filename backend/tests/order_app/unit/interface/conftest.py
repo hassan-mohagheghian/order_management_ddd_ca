@@ -1,8 +1,7 @@
 from unittest.mock import MagicMock
 
 import pytest
-
-from order_app.application.use_cases.user.login import LoginUserUseCase
+from order_app.application.use_cases.auth.login import LoginUserUseCase
 
 
 @pytest.fixture

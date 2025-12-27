@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from order_app.application.dtos.user.login import LoginUserRequestDto
-from order_app.application.use_cases.user.login import LoginUserUseCase
+from order_app.application.use_cases.auth.login import LoginUserUseCase
 from order_app.interface.common.operation_result import OperationResult
 from order_app.interface.presenters.base.user import LoginPresenter
 from order_app.interface.view_models.user_vm import LoginUserViewModel

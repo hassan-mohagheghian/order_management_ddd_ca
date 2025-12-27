@@ -2,13 +2,12 @@ from unittest.mock import MagicMock
 from uuid import uuid4
 
 from freezegun import freeze_time
-
 from order_app.application.common.result import ErrorCode
 from order_app.application.dtos.user.login import (
     LoginUserRequestDto,
     LoginUserResponseDto,
 )
-from order_app.application.use_cases.user.login import LoginUserUseCase
+from order_app.application.use_cases.auth.login import LoginUserUseCase
 from order_app.domain.entities.user import User
 from order_app.domain.exceptions import UserNotFoundError
 from order_app.domain.value_objects.user_role import UserRole
