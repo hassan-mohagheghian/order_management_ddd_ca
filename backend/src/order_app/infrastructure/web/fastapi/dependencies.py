@@ -1,5 +1,8 @@
 from order_app.infrastructure.composition_root import CompositionRoot
 from order_app.infrastructure.persistence.sqlite.db import get_connection
+from order_app.infrastructure.persistence.sqlite.refresh_token_repo import (
+    SqliteRefreshTokenRepository,
+)
 from order_app.infrastructure.persistence.sqlite.user_repository import (
     SqliteUserRepository,
 )
@@ -15,6 +18,7 @@ def get_composition_root() -> CompositionRoot:
         order_repository=None,
         product_repository=None,
         user_repository=SqliteUserRepository(connection=get_connection()),
+        refresh_token_repo=SqliteRefreshTokenRepository(connection=get_connection()),
         password_hasher=Argon2PasswordHasher(),
         register_presenter=WebRegisterUserPresenter(),
         login_presenter=WebLoginUserPresenter(),

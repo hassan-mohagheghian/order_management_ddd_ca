@@ -26,6 +26,7 @@ class WebRegisterUserPresenter(RegisterPresenter):
             ),
             tokens=TokensViewModel(
                 access_token=user_response.tokens.access_token,
+                refresh_token=user_response.tokens.refresh_token,
             ),
         )
 
@@ -43,7 +44,7 @@ class WebLoginUserPresenter(LoginPresenter):
                 role=response.role,
             ),
             access_token=response.access_token,
-            expires_in=response.expires_in,
+            refresh_token=response.refresh_token,
         )
 
     def present_error(self, error, code=None) -> ErrorViewModel:

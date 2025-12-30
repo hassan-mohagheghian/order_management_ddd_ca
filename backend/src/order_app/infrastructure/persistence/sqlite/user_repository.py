@@ -67,4 +67,3 @@ class SqliteUserRepository(UserRepository):
 
     def get_by_id(self, user_id):
         return super().get_by_id(user_id)
-        return super().get_by_id(user_id)

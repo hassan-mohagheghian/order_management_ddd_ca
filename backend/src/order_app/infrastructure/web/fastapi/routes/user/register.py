@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from fastapi import Depends, HTTPException
 from fastapi.responses import JSONResponse
 from order_app.infrastructure.composition_root import CompositionRoot
@@ -17,6 +15,8 @@ class RegisterUserRequest(BaseModel):
 
 class RegisterUserResponse(BaseModel):
     user_id: str
+    access_token: str
+    refresh_token: str
 
 
 def register_user(
@@ -31,13 +31,22 @@ def register_user(
     if operation_result.is_success:
         response = JSONResponse(
             content=RegisterUserResponse(
-                user_id=str(operation_result.success.user.id)
+                user_id=str(operation_result.success.user.id),
+                access_token=operation_result.success.tokens.access_token,
+                refresh_token=operation_result.success.tokens.refresh_token,
             ).model_dump(),
             status_code=status.HTTP_201_CREATED,
         )
         response.set_cookie(
             key="access_token",
             value=operation_result.success.tokens.access_token,
+            httponly=True,
+            secure=True,
+            samesite="lax",
+        )
+        response.set_cookie(
+            key="refresh_token",
+            value=operation_result.success.tokens.refresh_token,
             httponly=True,
             secure=True,
             samesite="lax",

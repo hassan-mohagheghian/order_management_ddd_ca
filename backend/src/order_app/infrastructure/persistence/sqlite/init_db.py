@@ -16,5 +16,15 @@ def init_db():
         )
         """
     )
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS refresh_tokens (
+            id TEXT PRIMARY KEY,
+            token TEXT NOT NULL,
+            user_id TEXT NOT NULL,
+            expires_at INTEGER NOT NULL,
+            is_revoked BOOLEAN NOT NULL
+        )"""
+    )
     conn.commit()
     conn.close()

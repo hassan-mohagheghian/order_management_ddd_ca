@@ -1,10 +1,11 @@
 from fastapi import Depends, HTTPException
-from pydantic import BaseModel, EmailStr
-from starlette import status
-
+from fastapi.responses import JSONResponse
+from order_app.domain.entities.auth import refresh_token
 from order_app.infrastructure.composition_root import CompositionRoot
 from order_app.infrastructure.web.fastapi.dependencies import get_composition_root
 from order_app.interface.controllers.user.login_user import LoginUserInputDto
+from pydantic import BaseModel, EmailStr
+from starlette import status
 
 
 class LoginUserRequest(BaseModel):
@@ -14,8 +15,7 @@ class LoginUserRequest(BaseModel):
 
 class LoginUserResponse(BaseModel):
     access_token: str
-    token_type: str = "Bearer"
-    expires_in: int
+    refresh_token: str
 
 
 def login_user(
@@ -29,11 +29,27 @@ def login_user(
         )
     )
     if operation_result.is_success:
-        return LoginUserResponse(
-            access_token=operation_result.success.access_token,
-            token_type=operation_result.success.token_type,
-            expires_in=operation_result.success.expires_in,
+        response = JSONResponse(
+            content=LoginUserResponse(
+                access_token=operation_result.success.access_token,
+                refresh_token=operation_result.success.refresh_token,
+            ).model_dump(),
         )
+        response.set_cookie(
+            key="access_token",
+            value=operation_result.success.access_token,
+            httponly=True,
+            secure=True,
+            samesite="lax",
+        )
+        response.set_cookie(
+            key="refresh_token",
+            value=operation_result.success.refresh_token,
+            httponly=True,
+            secure=True,
+            samesite="lax",
+        )
+        return response
     else:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

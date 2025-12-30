@@ -14,7 +14,7 @@ class UserViewModel:
 @dataclass
 class TokensViewModel:
     access_token: str
-    # refresh_token: str
+    refresh_token: str
 
 
 @dataclass
@@ -27,5 +27,4 @@ class RegisterUserViewModel:
 class LoginUserViewModel:
     user: UserViewModel
     access_token: str
-    expires_in: int
-    token_type: Literal["Bearer"] = field(default="Bearer")
+    refresh_token: str
