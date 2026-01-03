@@ -50,4 +50,18 @@ describe("SignupForm Integration", () => {
     expect(button).toBeDisabled();
     expect(screen.getByText(/signing up/i)).toBeInTheDocument();
   });
+
+  test("should show error message when signup fails", () => {
+    (useSignup as any).mockReturnValue({
+      mutate: vi.fn(),
+      isPending: false,
+      error: { message: "Email already exists" },
+    });
+
+    render(<SignupForm />);
+
+    const errorMessage = screen.getByText(/email already exists/i);
+    expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage).toHaveClass("text-red-500");
+  });
 });

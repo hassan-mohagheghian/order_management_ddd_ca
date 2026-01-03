@@ -3,7 +3,7 @@
 import { useSignup } from "@/features/auth/hooks/use-signup";
 
 export const SignupForm = () => {
-  const { mutate, isPending } = useSignup();
+  const { mutate, isPending, error } = useSignup();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,6 +59,11 @@ export const SignupForm = () => {
         />
       </div>
 
+      {error && (
+        <div className="text-red-500 test-sm font-bold bg-red-50 p-3 rounded-xl border-red-100 animate-shake">
+          {error.message || "Something went wrong!"}
+        </div>
+      )}
       <button
         type="submit"
         disabled={isPending}
