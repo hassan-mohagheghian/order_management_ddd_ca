@@ -10,8 +10,5 @@ export const useSignup = () => {
         onSuccess: () => {
             router.push("/");
         },
-        onError: (error) => {
-            console.error("Signup failed:", error);
-        }
     });
 }

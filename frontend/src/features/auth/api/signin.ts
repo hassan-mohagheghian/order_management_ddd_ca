@@ -10,7 +10,8 @@ export const signin = async (data: SignupPayload): Promise<SignupResponse> => {
         body: JSON.stringify(data)
     });
     if (!response.ok) {
-        throw new Error("Failed to sign in");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || "Failed to sign in");
     }
     return response.json()
 }
