@@ -3,7 +3,6 @@ import { SignupForm } from "./signup-form";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { useSignup } from "@/features/auth/hooks/use-signup";
 
-// Mock کردن هوک
 vi.mock("@/features/auth/hooks/use-signup");
 
 describe("SignupForm Integration", () => {
